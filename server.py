@@ -2,6 +2,7 @@ import socket
 import logging
 import json
 import random
+import datetime
 
 from common import ADDR
 
@@ -24,7 +25,12 @@ while True:
     client, (addr, port) = client_socket
     logger.warning(f"{addr} connected from port {port}")
 
-    client.send(str(random.random()).encode())
+    data= {
+        "time": datetime.datetime.now().isoformat(),
+        "number": random.random()
+    }
+
+    client.send(json.dumps(data).encode())
     client.close()
     
     
